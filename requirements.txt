@@ -1,0 +1,7 @@
+qiskit 
+qiskit-aer
+pillow
+numpy
+pycryptodome
+cryptography
+Flask>=2.3.3

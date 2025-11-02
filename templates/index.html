@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quantum-Based Image Encryption using AES</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="main-container">
+        <h1>Quantum-Based Image Encryption using AES</h1>
+
+        {% if result %}
+        <div class="result-box">
+          <strong>{{ result }}</strong>
+        </div>
+        {% endif %} {% if image_data %}
+        <div class="result-box">
+          <h3>Decrypted Image:</h3>
+          <img
+            src="data:image/png;base64,{{ image_data }}"
+            alt="Decrypted Image"
+            style="max-width: 250px; border-radius: 8px; margin-top: 10px"
+          />
+          <br />
+          <!-- ✅ Download Decrypted Image -->
+          <a
+            href="data:image/png;base64,{{ image_data }}"
+            download="decrypted_image.png"
+            class="download-btn"
+            style="
+              display: inline-block;
+              margin-top: 10px;
+              padding: 8px 15px;
+              background-color: #007bff;
+              color: white;
+              border-radius: 6px;
+              text-decoration: none;
+            "
+            >Download Decrypted Image</a
+          >
+        </div>
+        {% endif %}
+
+        <div class="content-container">
+          <div class="cards-column">
+            <!-- Encryption Card -->
+            <div class="card">
+              <h2>Encrypt Image</h2>
+              <form method="POST" enctype="multipart/form-data">
+                <label>Upload Image</label>
+                <input type="file" name="image" accept="image/*" required />
+
+                <label>Secret Key</label>
+                <input
+                  type="text"
+                  name="key"
+                  required
+                  placeholder="Enter your secret key"
+                />
+
+                <button type="submit" name="action" value="encrypt">
+                  Encrypt & Download Ciphertext
+                </button>
+              </form>
+            </div>
+
+            <!-- Decryption Card -->
+            <div class="card">
+              <h2>Decrypt Image</h2>
+              <form method="POST" enctype="multipart/form-data">
+                <label>Upload Ciphertext (.txt)</label>
+                <input type="file" name="ciphertext" accept=".txt" required />
+
+                <label>Secret Key</label>
+                <input
+                  type="text"
+                  name="key"
+                  required
+                  placeholder="Enter your secret key"
+                />
+
+                <button type="submit" name="action" value="decrypt">
+                  Decrypt & Show Image
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Info Column -->
+          <div class="illustration-column">
+            <img
+              src="{{ url_for('static', filename='images/image.jpg') }}"
+              alt="Quantum Image Illustration"
+              class="illustration"
+            />
+            <div class="explanation">
+              <h2>What is NEQR?</h2>
+              <br />
+              <p>
+                NEQR (Novel Enhanced Quantum Representation) is a quantum image
+                model that encodes grayscale pixel values into quantum states.
+                When combined with AES encryption, it provides a strong hybrid
+                security mechanism that allows both quantum representation and
+                classical encryption for secure image transmission.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
